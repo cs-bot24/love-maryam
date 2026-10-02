@@ -110,10 +110,12 @@
       font-size: 15px;
       font-weight: bold;
       cursor: pointer;
+      transition: .25s ease;
     }
 
     button:hover {
       background: #1f2937;
+      transform: translateY(-2px);
     }
 
     .hidden {
@@ -142,6 +144,49 @@
       padding: 18px;
       color: #8b949e;
       line-height: 1.7;
+    }
+
+    /* Maryam's photo */
+
+    .photo-container {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0 25px;
+      animation: photoAppear 1.2s ease;
+    }
+
+    .maryam-photo {
+      width: 190px;
+      height: 190px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      border: 3px solid #58a6ff;
+      padding: 4px;
+      background: #0d1117;
+      box-shadow:
+        0 0 15px rgba(88,166,255,.25),
+        0 0 35px rgba(88,166,255,.15);
+    }
+
+    .photo-caption {
+      text-align: center;
+      color: #8b949e;
+      font-size: 12px;
+      margin-top: -12px;
+      margin-bottom: 25px;
+    }
+
+    @keyframes photoAppear {
+      from {
+        opacity: 0;
+        transform: scale(.65);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .message {
@@ -177,11 +222,89 @@
       font-size: 12px;
     }
 
+    /* Final surprise */
+
+    .one-more {
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .surprise {
+      margin-top: 20px;
+      padding: 20px;
+      background: #010409;
+      border: 1px solid #58a6ff;
+      border-radius: 14px;
+      text-align: center;
+      animation: surpriseAppear .8s ease;
+    }
+
+    .surprise-code {
+      color: #a5d6ff;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .final-love {
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    .final-love strong {
+      color: #ff7b72;
+    }
+
+    @keyframes surpriseAppear {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @keyframes pulse {
       50% {
         transform: scale(1.12);
       }
     }
+
+    @media (max-width: 500px) {
+
+      .content {
+        padding: 28px 18px;
+      }
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .heart {
+        font-size: 55px;
+      }
+
+      .code {
+        font-size: 12px;
+        padding: 16px;
+      }
+
+      .message {
+        font-size: 15px;
+        padding: 18px;
+      }
+
+      .maryam-photo {
+        width: 170px;
+        height: 170px;
+      }
+
+    }
+
   </style>
 </head>
 
@@ -195,6 +318,7 @@
       <span class="dot"></span>
       <span class="filename">LOVE.java</span>
     </div>
+
 
     <div class="content">
 
@@ -210,7 +334,9 @@
           A little program written for one very special person.
         </p>
 
+
         <div class="code">
+
           <span class="keyword">public class</span> Love {<br><br>
 
           &nbsp;&nbsp;
@@ -226,8 +352,11 @@
           <span class="string">"Maryam"</span>);<br>
 
           &nbsp;&nbsp;}<br>
+
           }
+
         </div>
+
 
         <button id="runBtn">
           ▶ Run My Heart
@@ -244,9 +373,11 @@
           Compiling feelings for Maryam...
         </p>
 
+
         <div class="progress">
           <div id="bar" class="bar"></div>
         </div>
+
 
         <div id="output" class="output">
           $ waiting for program...
@@ -266,6 +397,26 @@
         <p class="subtitle">
           No errors. No exceptions. Just feelings.
         </p>
+
+
+        <!-- MARYAM PHOTO -->
+
+        <div class="photo-container">
+
+          <img
+            src="maryam.jpg"
+            alt="Maryam"
+            class="maryam-photo"
+          >
+
+        </div>
+
+        <div class="photo-caption">
+          $ match.found("Maryam") ✓
+        </div>
+
+
+        <!-- MESSAGE -->
 
         <div class="message">
 
@@ -295,7 +446,9 @@
 
           <br><br>
 
-          <strong>Maryam = someone incredibly special to me ❤️</strong>
+          <strong>
+            Maryam = someone incredibly special to me ❤️
+          </strong>
 
           <br><br>
 
@@ -311,11 +464,67 @@
 
         </div>
 
+
+        <!-- STATUS TAGS -->
+
         <div class="tags">
-          <span class="tag">✓ Heart connected</span>
-          <span class="tag">✓ Feelings loaded</span>
-          <span class="tag">✓ Maryam found</span>
+
+          <span class="tag">
+            ✓ Heart connected
+          </span>
+
+          <span class="tag">
+            ✓ Feelings loaded
+          </span>
+
+          <span class="tag">
+            ✓ Maryam found
+          </span>
+
         </div>
+
+
+        <!-- ONE MORE THING -->
+
+        <div class="one-more">
+
+          <button id="surpriseBtn">
+            ♥ One more thing...
+          </button>
+
+
+          <div id="surprise" class="surprise hidden">
+
+            <div class="surprise-code">
+
+              System.out.println(
+              <span class="string">"I chose you."</span>
+              );
+
+            </div>
+
+
+            <div class="final-love">
+
+              Maryam, you are my
+              <strong>favorite part of the program.</strong>
+
+              <br>
+
+              And if I could choose again...
+
+              <br>
+
+              I'd still choose you. ❤️
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- AGAIN BUTTON -->
 
         <button id="againBtn">
           ↻ Run it again
@@ -324,37 +533,59 @@
       </div>
 
     </div>
+
   </div>
 
 
   <script>
 
     const runBtn = document.getElementById("runBtn");
+
     const againBtn = document.getElementById("againBtn");
 
+    const surpriseBtn = document.getElementById("surpriseBtn");
+
     const intro = document.getElementById("intro");
+
     const running = document.getElementById("running");
+
     const final = document.getElementById("final");
 
+    const surprise = document.getElementById("surprise");
+
     const bar = document.getElementById("bar");
+
     const output = document.getElementById("output");
 
+
+    /* RUN PROGRAM */
 
     runBtn.addEventListener("click", function () {
 
       intro.classList.add("hidden");
+
       running.classList.remove("hidden");
+
 
       let progress = 0;
 
+
       const messages = [
+
         "$ initializing heart...",
+
         "$ loading memories...",
+
         "$ checking compatibility...",
+
         "$ searching for someone special...",
+
         "$ match found: MARYAM ❤️",
+
         "$ compiling feelings..."
+
       ];
+
 
       const interval = setInterval(function () {
 
@@ -362,31 +593,47 @@
 
         bar.style.width = progress + "%";
 
+
         if (progress === 20) {
+
           output.textContent = messages[1];
+
         }
+
 
         if (progress === 40) {
+
           output.textContent = messages[2];
+
         }
+
 
         if (progress === 60) {
+
           output.textContent = messages[3];
+
         }
 
+
         if (progress === 80) {
+
           output.textContent = messages[4];
+
         }
+
 
         if (progress >= 100) {
 
           clearInterval(interval);
 
+
           output.textContent = messages[5];
+
 
           setTimeout(function () {
 
             running.classList.add("hidden");
+
             final.classList.remove("hidden");
 
           }, 800);
@@ -398,11 +645,28 @@
     });
 
 
+    /* ONE MORE THING */
+
+    surpriseBtn.addEventListener("click", function () {
+
+      surprise.classList.remove("hidden");
+
+      surpriseBtn.style.display = "none";
+
+    });
+
+
+    /* RUN AGAIN */
+
     againBtn.addEventListener("click", function () {
 
       final.classList.add("hidden");
 
       intro.classList.remove("hidden");
+
+      surprise.classList.add("hidden");
+
+      surpriseBtn.style.display = "block";
 
       bar.style.width = "0%";
 
