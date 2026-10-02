@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOVE.java ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: #080b10;
+      color: #e6edf3;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 700px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 16px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #484f58;
+    }
+
+    .filename {
+      margin-left: 8px;
+      color: #8b949e;
+      font-size: 13px;
+    }
+
+    .content {
+      padding: 35px 25px;
+    }
+
+    .heart {
+      text-align: center;
+      font-size: 65px;
+      animation: pulse 1.8s infinite;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin: 15px 0 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #8b949e;
+      line-height: 1.6;
+    }
+
+    .code {
+      margin-top: 30px;
+      padding: 20px;
+      background: #010409;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      line-height: 1.8;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+
+    .keyword {
+      color: #ff7b72;
+    }
+
+    .string {
+      color: #a5d6ff;
+    }
+
+    .comment {
+      color: #8b949e;
+    }
+
+    button {
+      display: block;
+      margin: 25px auto 0;
+      padding: 13px 22px;
+      border: 1px solid #58a6ff;
+      border-radius: 10px;
+      background: #161b22;
+      color: #58a6ff;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1f2937;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .progress {
+      height: 9px;
+      background: #21262d;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 25px 0;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0;
+      background: #58a6ff;
+      transition: width .1s;
+    }
+
+    .output {
+      background: #010409;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 18px;
+      color: #8b949e;
+      line-height: 1.7;
+    }
+
+    .message {
+      margin-top: 25px;
+      padding: 22px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .signature {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .tags {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      padding: 7px 12px;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      color: #8b949e;
+      font-size: 12px;
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.12);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="terminal">
+
+    <div class="top">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="filename">LOVE.java</span>
+    </div>
+
+    <div class="content">
+
+      <!-- INTRO -->
+
+      <div id="intro">
+
+        <div class="heart">❤️</div>
+
+        <h1>LOVE.java</h1>
+
+        <p class="subtitle">
+          A little program written for one very special person.
+        </p>
+
+        <div class="code">
+          <span class="keyword">public class</span> Love {<br><br>
+
+          &nbsp;&nbsp;
+          <span class="keyword">public static void</span>
+          main(String[] args) {<br>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          Heart myHeart =
+          <span class="keyword">new</span> Heart();<br>
+
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          myHeart.choose(
+          <span class="string">"Maryam"</span>);<br>
+
+          &nbsp;&nbsp;}<br>
+          }
+        </div>
+
+        <button id="runBtn">
+          ▶ Run My Heart
+        </button>
+
+      </div>
+
+
+      <!-- COMPILING -->
+
+      <div id="running" class="hidden">
+
+        <p class="subtitle">
+          Compiling feelings for Maryam...
+        </p>
+
+        <div class="progress">
+          <div id="bar" class="bar"></div>
+        </div>
+
+        <div id="output" class="output">
+          $ waiting for program...
+        </div>
+
+      </div>
+
+
+      <!-- FINAL MESSAGE -->
+
+      <div id="final" class="hidden">
+
+        <div class="heart">💗</div>
+
+        <h1>Compilation Successful.</h1>
+
+        <p class="subtitle">
+          No errors. No exceptions. Just feelings.
+        </p>
+
+        <div class="message">
+
+          Maryam, I honestly tried to think of one particular
+          thing about you that I could say I love most.
+
+          <br><br>
+
+          But I couldn't choose one.
+
+          <br><br>
+
+          It's your personality, your presence, the way you talk,
+          the little things you do, and simply the person you are.
+
+          Somehow, I just like
+          <strong>everything about you.</strong>
+
+          <br><br>
+
+          If my heart were a program, I wouldn't need a complicated
+          algorithm to explain it.
+
+          <br><br>
+
+          The result would simply be:
+
+          <br><br>
+
+          <strong>Maryam = someone incredibly special to me ❤️</strong>
+
+          <br><br>
+
+          And unlike ordinary code, this isn't something I want
+          to debug, change, or delete.
+
+          I just want to keep discovering more reasons to
+          appreciate you.
+
+          <div class="signature">
+            — Khalid ❤️
+          </div>
+
+        </div>
+
+        <div class="tags">
+          <span class="tag">✓ Heart connected</span>
+          <span class="tag">✓ Feelings loaded</span>
+          <span class="tag">✓ Maryam found</span>
+        </div>
+
+        <button id="againBtn">
+          ↻ Run it again
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+
+    const runBtn = document.getElementById("runBtn");
+    const againBtn = document.getElementById("againBtn");
+
+    const intro = document.getElementById("intro");
+    const running = document.getElementById("running");
+    const final = document.getElementById("final");
+
+    const bar = document.getElementById("bar");
+    const output = document.getElementById("output");
+
+
+    runBtn.addEventListener("click", function () {
+
+      intro.classList.add("hidden");
+      running.classList.remove("hidden");
+
+      let progress = 0;
+
+      const messages = [
+        "$ initializing heart...",
+        "$ loading memories...",
+        "$ checking compatibility...",
+        "$ searching for someone special...",
+        "$ match found: MARYAM ❤️",
+        "$ compiling feelings..."
+      ];
+
+      const interval = setInterval(function () {
+
+        progress += 5;
+
+        bar.style.width = progress + "%";
+
+        if (progress === 20) {
+          output.textContent = messages[1];
+        }
+
+        if (progress === 40) {
+          output.textContent = messages[2];
+        }
+
+        if (progress === 60) {
+          output.textContent = messages[3];
+        }
+
+        if (progress === 80) {
+          output.textContent = messages[4];
+        }
+
+        if (progress >= 100) {
+
+          clearInterval(interval);
+
+          output.textContent = messages[5];
+
+          setTimeout(function () {
+
+            running.classList.add("hidden");
+            final.classList.remove("hidden");
+
+          }, 800);
+
+        }
+
+      }, 100);
+
+    });
+
+
+    againBtn.addEventListener("click", function () {
+
+      final.classList.add("hidden");
+
+      intro.classList.remove("hidden");
+
+      bar.style.width = "0%";
+
+      output.textContent = "$ waiting for program...";
+
+    });
+
+  </script>
+
+</body>
+</html>
