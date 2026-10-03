@@ -207,22 +207,112 @@
     .photo-container {
       display: flex;
       justify-content: center;
-      margin: 30px 0 25px;
+      margin: 42px 0 28px;
       animation: photoAppear 1.2s ease;
     }
 
+    .photo-frame {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Slowly turning gradient ring */
+    .photo-frame::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(#58a6ff, #ff7b9c, #ffb3c6, #a5d6ff, #58a6ff);
+      animation: spinRing 7s linear infinite;
+    }
+
+    /* Soft glow behind the ring */
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: -16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,120,160,.35), rgba(88,166,255,.2) 60%, transparent 72%);
+      filter: blur(14px);
+      z-index: -1;
+      animation: glowBeat 3s ease-in-out infinite;
+    }
+
     .maryam-photo {
-      width: 190px;
-      height: 190px;
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       object-position: center;
       border-radius: 50%;
-      border: 3px solid #58a6ff;
-      padding: 4px;
+      border: 5px solid #0d1117;
       background: #0d1117;
-      box-shadow:
-        0 0 15px rgba(88,166,255,.25),
-        0 0 35px rgba(255,100,150,.18);
+      transition: transform .5s ease;
+    }
+
+    .photo-frame:hover .maryam-photo {
+      transform: scale(1.05);
+    }
+
+    .photo-heart {
+      position: absolute;
+      z-index: 2;
+      font-size: 22px;
+      animation: bob 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 8px rgba(255,100,150,.5));
+      pointer-events: none;
+    }
+
+    .photo-heart.a {
+      top: -6px;
+      right: 2px;
+    }
+
+    .photo-heart.b {
+      bottom: 4px;
+      left: -8px;
+      animation-delay: 1s;
+    }
+
+    .photo-heart.c {
+      top: 22px;
+      left: -14px;
+      font-size: 16px;
+      animation-delay: 2s;
+    }
+
+    .photo-name {
+      margin: -4px 0 16px;
+      text-align: center;
+      font-family: "Dancing Script", "Brush Script MT", cursive;
+      font-size: 34px;
+      font-weight: 600;
+      color: #ffb3c6;
+      text-shadow: 0 0 18px rgba(255,120,160,.35);
+    }
+
+    @keyframes spinRing {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes glowBeat {
+      50% {
+        transform: scale(1.12);
+        opacity: .7;
+      }
+    }
+
+    @keyframes bob {
+      50% {
+        transform: translateY(-8px) rotate(8deg);
+      }
     }
 
     .photo-caption {
@@ -533,9 +623,9 @@
         padding: 18px;
       }
 
-      .maryam-photo {
-        width: 170px;
-        height: 170px;
+      .photo-frame {
+        width: 175px;
+        height: 175px;
       }
 
       .counter-value {
@@ -547,7 +637,10 @@
     @media (prefers-reduced-motion: reduce) {
 
       .glow,
-      .heart {
+      .heart,
+      .photo-frame::before,
+      .photo-frame::after,
+      .photo-heart {
         animation: none;
       }
 
@@ -664,13 +757,23 @@
 
         <div class="photo-container">
 
-          <img
-            src="maryam.jpg"
-            alt="Maryam"
-            class="maryam-photo"
-          >
+          <div class="photo-frame" id="photoFrame">
+
+            <img
+              src="maryam.jpg"
+              alt="Maryam"
+              class="maryam-photo"
+            >
+
+            <span class="photo-heart a">💗</span>
+            <span class="photo-heart b">✨</span>
+            <span class="photo-heart c">💕</span>
+
+          </div>
 
         </div>
+
+        <div class="photo-name">Maryam ❤️</div>
 
         <div class="photo-caption">
           $ match.found("Maryam") ✓
@@ -1229,6 +1332,15 @@
         }
 
       }, 90);
+
+    });
+
+
+    /* ---------- PHOTO TAP ---------- */
+
+    document.getElementById("photoFrame").addEventListener("click", function () {
+
+      burst(this, 14);
 
     });
 
