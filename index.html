@@ -807,7 +807,7 @@
     // Your phone number for the Reply button, with country code and
     // digits only (example: "2348012345678"). Leave empty to open a
     // normal text message instead of WhatsApp.
-    const REPLY_NUMBER = "";
+    const REPLY_NUMBER = "2348068582901";
 
     const REPLY_TEXT = "I read everything, Khalid ❤️";
 
@@ -1127,14 +1127,8 @@
 
     /* ---------- REPLY BUTTON ---------- */
 
-    if (REPLY_NUMBER) {
-      replyBtn.href =
-        "https://wa.me/" + 2348068582901 +
-        "?text=" + encodeURIComponent(REPLY_TEXT);
-    } else {
-      replyBtn.href = "sms:?body=" + encodeURIComponent(REPLY_TEXT);
-      replyBtn.removeAttribute("target");
-    }
+    replyBtn.href =
+      "https://wa.me/2348068582901?text=" + encodeURIComponent(REPLY_TEXT);
 
 
     /* ---------- RUN PROGRAM ---------- */
