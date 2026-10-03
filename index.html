@@ -415,6 +415,16 @@
       }
     }
 
+    .reply-note {
+      margin: 35px 0 0;
+      text-align: center;
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #ffb3c6;
+    }
+
     /* Music button */
 
     .music-btn {
@@ -782,6 +792,10 @@
 
         <!-- REPLY BUTTON -->
 
+        <p id="replyNote" class="reply-note hidden">
+          Whenever you're ready, I'd love to hear from you.
+        </p>
+
         <a id="replyBtn" class="btn love hidden" href="#" target="_blank" rel="noopener">
           ❤️ Reply to Khalid
         </a>
@@ -808,8 +822,6 @@
     // digits only (example: "2348012345678"). Leave empty to open a
     // normal text message instead of WhatsApp.
     const REPLY_NUMBER = "2348068582901";
-
-    const REPLY_TEXT = "I read everything, Khalid ❤️";
 
     // The day you first met / started talking (year, month 0-11, day)
     const START_DATE = new Date(2026, 8, 12);
@@ -854,6 +866,8 @@
     const oneMore = document.getElementById("oneMore");
 
     const replyBtn = document.getElementById("replyBtn");
+
+    const replyNote = document.getElementById("replyNote");
 
     const bgMusic = document.getElementById("bgMusic");
 
@@ -1019,7 +1033,7 @@
 
       typed.innerHTML = "";
 
-      [signature, reasons, counter, tags, oneMore, replyBtn, againBtn]
+      [signature, reasons, counter, tags, oneMore, replyNote, replyBtn, againBtn]
         .forEach(function (el) {
           el.classList.add("hidden");
           el.classList.remove("fade-in");
@@ -1091,6 +1105,12 @@
 
       if (id !== runId) return;
 
+      reveal(replyNote);
+
+      await pause(600);
+
+      if (id !== runId) return;
+
       reveal(replyBtn);
 
       reveal(againBtn);
@@ -1127,8 +1147,7 @@
 
     /* ---------- REPLY BUTTON ---------- */
 
-    replyBtn.href =
-      "https://wa.me/2348068582901?text=" + encodeURIComponent(REPLY_TEXT);
+    replyBtn.href = "https://wa.me/2348068582901";
 
 
     /* ---------- RUN PROGRAM ---------- */
