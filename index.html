@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LOVE.java ❤️</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -22,7 +26,28 @@
       font-family: Consolas, "Courier New", monospace;
     }
 
+    /* Soft background glow */
+
+    .glow {
+      position: fixed;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,100,150,.16), transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(88,166,255,.16), transparent 45%);
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      to {
+        transform: translate(3%, 2%) scale(1.08);
+      }
+    }
+
     .terminal {
+      position: relative;
+      z-index: 1;
       width: 100%;
       max-width: 700px;
       background: #0d1117;
@@ -99,27 +124,54 @@
       color: #8b949e;
     }
 
-    button {
+    button,
+    a.btn {
       display: block;
+      width: fit-content;
       margin: 25px auto 0;
       padding: 13px 22px;
       border: 1px solid #58a6ff;
       border-radius: 10px;
       background: #161b22;
       color: #58a6ff;
+      font-family: inherit;
       font-size: 15px;
       font-weight: bold;
+      text-decoration: none;
+      text-align: center;
       cursor: pointer;
       transition: .25s ease;
     }
 
-    button:hover {
+    button:hover,
+    a.btn:hover {
       background: #1f2937;
       transform: translateY(-2px);
     }
 
+    a.btn.love {
+      border-color: #ff7b72;
+      color: #ff7b72;
+    }
+
     .hidden {
-      display: none;
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .progress {
@@ -133,7 +185,7 @@
     .bar {
       height: 100%;
       width: 0;
-      background: #58a6ff;
+      background: linear-gradient(90deg, #58a6ff, #ff7b9c);
       transition: width .1s;
     }
 
@@ -143,7 +195,11 @@
       border-radius: 12px;
       padding: 18px;
       color: #8b949e;
-      line-height: 1.7;
+      line-height: 1.8;
+      font-size: 14px;
+      min-height: 230px;
+      white-space: pre-line;
+      text-align: left;
     }
 
     /* Maryam's photo */
@@ -166,7 +222,7 @@
       background: #0d1117;
       box-shadow:
         0 0 15px rgba(88,166,255,.25),
-        0 0 35px rgba(88,166,255,.15);
+        0 0 35px rgba(255,100,150,.18);
     }
 
     .photo-caption {
@@ -189,21 +245,112 @@
       }
     }
 
+    /* Message (typewriter) */
+
     .message {
       margin-top: 25px;
-      padding: 22px;
+      padding: 24px 22px;
       background: #161b22;
       border: 1px solid #30363d;
       border-radius: 14px;
-      font-family: Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.8;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .message .para {
+      margin: 0 0 16px;
+    }
+
+    .message strong {
+      color: #ffb3c6;
     }
 
     .signature {
       margin-top: 20px;
-      font-weight: bold;
+      font-family: "Dancing Script", "Brush Script MT", cursive;
+      font-size: 30px;
+      font-weight: 600;
       text-align: right;
+      color: #ff9db8;
+    }
+
+    .skip-hint {
+      margin-top: 4px;
+      color: #6e7681;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    /* reasons.txt */
+
+    .reasons {
+      margin-top: 25px;
+      background: #010409;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .reasons-title {
+      padding: 10px 16px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      color: #8b949e;
+      font-size: 12px;
+    }
+
+    .reasons ul {
+      list-style: none;
+      margin: 0;
+      padding: 16px 18px;
+    }
+
+    .reasons li {
+      padding: 5px 0;
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reasons li.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Time counter */
+
+    .counter {
+      margin-top: 25px;
+      padding: 18px;
+      background: #010409;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .counter-label {
+      color: #8b949e;
+      font-size: 12px;
+    }
+
+    .counter-value {
+      margin-top: 8px;
+      color: #ff9db8;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.5;
+    }
+
+    .counter-note {
+      margin-top: 6px;
+      color: #8b949e;
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
     }
 
     .tags {
@@ -247,9 +394,9 @@
     }
 
     .final-love {
-      font-family: Arial, sans-serif;
-      font-size: 20px;
-      line-height: 1.6;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 21px;
+      line-height: 1.7;
     }
 
     .final-love strong {
@@ -265,6 +412,84 @@
       to {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    /* Music button */
+
+    .music-btn {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      margin: 0;
+      padding: 9px 14px;
+      font-size: 13px;
+      border-radius: 999px;
+    }
+
+    /* Floating love emojis */
+
+    #loveEmojis {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .love-emoji {
+      position: absolute;
+      bottom: -40px;
+      font-size: 24px;
+      opacity: 0;
+      animation: floatLove 4s ease-out forwards;
+      filter: drop-shadow(0 0 8px rgba(255, 100, 150, .35));
+      user-select: none;
+    }
+
+    @keyframes floatLove {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(.4) rotate(0deg);
+      }
+
+      12% {
+        opacity: 1;
+        transform: translateY(-30px) scale(1.15) rotate(-8deg);
+      }
+
+      45% {
+        opacity: .9;
+        transform: translateY(-180px) scale(1) rotate(8deg);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-430px) scale(.75) rotate(-12deg);
+      }
+    }
+
+    /* Heart burst on tap */
+
+    .burst-emoji {
+      position: fixed;
+      z-index: 20;
+      pointer-events: none;
+      font-size: 22px;
+      user-select: none;
+      animation: burst 1.4s ease-out forwards;
+    }
+
+    @keyframes burst {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(.4);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3);
       }
     }
 
@@ -294,7 +519,7 @@
       }
 
       .message {
-        font-size: 15px;
+        font-size: 16px;
         padding: 18px;
       }
 
@@ -303,12 +528,40 @@
         height: 170px;
       }
 
+      .counter-value {
+        font-size: 18px;
+      }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .glow,
+      .heart {
+        animation: none;
+      }
+
+      #loveEmojis,
+      .burst-emoji {
+        display: none;
+      }
+
     }
 
   </style>
 </head>
 
 <body>
+<div id="loveEmojis"></div>
+
+  <div class="glow"></div>
+
+  <!-- Background music: put a file named music.mp3 next to this page -->
+  <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
+  <button id="musicBtn" class="music-btn" aria-label="Toggle music">
+    🎵 Music off
+  </button>
 
   <div class="terminal">
 
@@ -379,9 +632,7 @@
         </div>
 
 
-        <div id="output" class="output">
-          $ waiting for program...
-        </div>
+        <div id="output" class="output">$ waiting for program...</div>
 
       </div>
 
@@ -416,50 +667,55 @@
         </div>
 
 
-        <!-- MESSAGE -->
+        <!-- MESSAGE (typed out by script) -->
 
-        <div class="message">
+        <div class="message" id="messageBox">
 
-          Maryam, I honestly tried to think of one particular
-          thing about you that I could say I love most.
+          <div id="typed"></div>
 
-          <br><br>
-
-          But I couldn't choose one.
-
-          <br><br>
-
-          It's your personality, your presence, the way you talk,
-          the little things you do, and simply the person you are.
-
-          Somehow, I just like
-          <strong>everything about you.</strong>
-
-          <br><br>
-
-          If my heart were a program, I wouldn't need a complicated
-          algorithm to explain it.
-
-          <br><br>
-
-          The result would simply be:
-
-          <br><br>
-
-          <strong>
-            Maryam = someone incredibly special to me ❤️
-          </strong>
-
-          <br><br>
-
-          And unlike ordinary code, this isn't something I want
-          to debug, change, or delete.
-
-          I just want to keep discovering more reasons to
-          appreciate you.
-
-          <div class="signature">
+          <div class="signature hidden" id="signature">
             — Khalid ❤️
+          </div>
+
+        </div>
+
+        <div class="skip-hint" id="skipHint">
+          tap the message to skip the typing
+        </div>
+
+
+        <!-- REASONS -->
+
+        <div class="reasons hidden" id="reasons">
+
+          <div class="reasons-title">reasons.txt</div>
+
+          <ul>
+            <li><span class="keyword">Reason 1:</span> your laughter</li>
+            <li><span class="keyword">Reason 2:</span> your smile</li>
+            <li><span class="keyword">Reason 3:</span> our phone calls</li>
+            <li><span class="keyword">Reason 4:</span> the way you care</li>
+            <li><span class="keyword">Reason 5:</span> the day we met, 12 September 2026</li>
+            <li><span class="keyword">Reason 6:</span> simply, you</li>
+          </ul>
+
+        </div>
+
+
+        <!-- TIME COUNTER -->
+
+        <div class="counter hidden" id="counter">
+
+          <div class="counter-label">
+            $ uptime --since 12-09-2026
+          </div>
+
+          <div class="counter-value" id="counterValue">
+            0 days
+          </div>
+
+          <div class="counter-note">
+            since the day it all started
           </div>
 
         </div>
@@ -467,7 +723,7 @@
 
         <!-- STATUS TAGS -->
 
-        <div class="tags">
+        <div class="tags hidden" id="tags">
 
           <span class="tag">
             ✓ Heart connected
@@ -486,7 +742,7 @@
 
         <!-- ONE MORE THING -->
 
-        <div class="one-more">
+        <div class="one-more hidden" id="oneMore">
 
           <button id="surpriseBtn">
             ♥ One more thing...
@@ -524,9 +780,16 @@
         </div>
 
 
+        <!-- REPLY BUTTON -->
+
+        <a id="replyBtn" class="btn love hidden" href="#" target="_blank" rel="noopener">
+          ❤️ Reply to Khalid
+        </a>
+
+
         <!-- AGAIN BUTTON -->
 
-        <button id="againBtn">
+        <button id="againBtn" class="hidden">
           ↻ Run it again
         </button>
 
@@ -538,6 +801,21 @@
 
 
   <script>
+
+    /* ---------- SETTINGS ---------- */
+
+    // Your phone number for the Reply button, with country code and
+    // digits only (example: "2348012345678"). Leave empty to open a
+    // normal text message instead of WhatsApp.
+    const REPLY_NUMBER = "";
+
+    const REPLY_TEXT = "I read everything, Khalid ❤️";
+
+    // The day you first met / started talking (year, month 0-11, day)
+    const START_DATE = new Date(2026, 8, 12);
+
+
+    /* ---------- ELEMENTS ---------- */
 
     const runBtn = document.getElementById("runBtn");
 
@@ -557,97 +835,396 @@
 
     const output = document.getElementById("output");
 
+    const typed = document.getElementById("typed");
 
-    /* RUN PROGRAM */
+    const messageBox = document.getElementById("messageBox");
+
+    const skipHint = document.getElementById("skipHint");
+
+    const signature = document.getElementById("signature");
+
+    const reasons = document.getElementById("reasons");
+
+    const counter = document.getElementById("counter");
+
+    const counterValue = document.getElementById("counterValue");
+
+    const tags = document.getElementById("tags");
+
+    const oneMore = document.getElementById("oneMore");
+
+    const replyBtn = document.getElementById("replyBtn");
+
+    const bgMusic = document.getElementById("bgMusic");
+
+    const musicBtn = document.getElementById("musicBtn");
+
+
+    /* ---------- HELPERS ---------- */
+
+    let runId = 0;
+
+    let fast = false;
+
+    let progressTimer = null;
+
+    const sleep = (ms) => new Promise((r) => setTimeout(r, fast ? 0 : ms));
+
+    const pause = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    function reveal(el) {
+      el.classList.remove("hidden");
+      el.classList.add("fade-in");
+    }
+
+
+    /* ---------- HEART BURST ---------- */
+
+    const burstList = ["❤️", "💗", "💖", "💕", "✨", "🌹"];
+
+    function burst(el, count) {
+
+      const rect = el.getBoundingClientRect();
+
+      const x = rect.left + rect.width / 2;
+
+      const y = rect.top + rect.height / 2;
+
+      for (let i = 0; i < count; i++) {
+
+        const item = document.createElement("div");
+
+        item.className = "burst-emoji";
+
+        item.textContent =
+          burstList[Math.floor(Math.random() * burstList.length)];
+
+        const angle = Math.random() * Math.PI * 2;
+
+        const distance = 70 + Math.random() * 110;
+
+        item.style.left = x + "px";
+
+        item.style.top = y + "px";
+
+        item.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+
+        item.style.setProperty("--dy", Math.sin(angle) * distance - 40 + "px");
+
+        document.body.appendChild(item);
+
+        setTimeout(() => item.remove(), 1500);
+      }
+    }
+
+
+    /* ---------- MUSIC ---------- */
+
+    function updateMusicLabel() {
+      musicBtn.textContent = bgMusic.paused ? "🎵 Music off" : "🎶 Music on";
+    }
+
+    function startMusic() {
+      const attempt = bgMusic.play();
+      if (attempt && attempt.catch) {
+        attempt.catch(function () {});
+      }
+    }
+
+    musicBtn.addEventListener("click", function () {
+      if (bgMusic.paused) {
+        startMusic();
+      } else {
+        bgMusic.pause();
+      }
+    });
+
+    bgMusic.addEventListener("play", updateMusicLabel);
+
+    bgMusic.addEventListener("pause", updateMusicLabel);
+
+    // If music.mp3 is missing, hide the button instead of showing a broken one
+    bgMusic.addEventListener("error", function () {
+      musicBtn.classList.add("hidden");
+    });
+
+
+    /* ---------- TYPED MESSAGE ---------- */
+
+    const paragraphs = [
+
+      [{ t: "Maryam, I honestly tried to think of one particular thing about you that I could say I love most." }],
+
+      [{ t: "But I couldn't choose one." }],
+
+      [
+        { t: "It's your personality, your presence, the way you talk, the little things you do, and simply the person you are. Somehow, I just like " },
+        { t: "everything about you.", b: true }
+      ],
+
+      [{ t: "If my heart were a program, I wouldn't need a complicated algorithm to explain it." }],
+
+      [{ t: "The result would simply be:" }],
+
+      [{ t: "Maryam = someone incredibly special to me ❤️", b: true }],
+
+      [{ t: "I will never forget 12 September 2026, the day we first met. That was the day it all started." }],
+
+      [{ t: "And unlike ordinary code, this isn't something I want to debug, change, or delete. I just want to keep discovering more reasons to appreciate you." }]
+
+    ];
+
+    async function typeMessage(id) {
+
+      typed.innerHTML = "";
+
+      for (const para of paragraphs) {
+
+        const p = document.createElement("p");
+
+        p.className = "para";
+
+        typed.appendChild(p);
+
+        for (const seg of para) {
+
+          const node = document.createElement(seg.b ? "strong" : "span");
+
+          p.appendChild(node);
+
+          for (const ch of Array.from(seg.t)) {
+
+            if (id !== runId) return false;
+
+            node.textContent += ch;
+
+            await sleep(24);
+          }
+        }
+
+        await sleep(450);
+      }
+
+      return id === runId;
+    }
+
+    messageBox.addEventListener("click", function () {
+      fast = true;
+    });
+
+
+    /* ---------- FINAL SEQUENCE ---------- */
+
+    function resetFinal() {
+
+      typed.innerHTML = "";
+
+      [signature, reasons, counter, tags, oneMore, replyBtn, againBtn]
+        .forEach(function (el) {
+          el.classList.add("hidden");
+          el.classList.remove("fade-in");
+        });
+
+      skipHint.classList.remove("hidden");
+
+      reasons.querySelectorAll("li").forEach(function (li) {
+        li.classList.remove("show");
+      });
+
+      surprise.classList.add("hidden");
+
+      surpriseBtn.style.display = "block";
+    }
+
+    async function playFinal(id) {
+
+      fast = false;
+
+      resetFinal();
+
+      const done = await typeMessage(id);
+
+      if (!done) return;
+
+      skipHint.classList.add("hidden");
+
+      reveal(signature);
+
+      await pause(700);
+
+      if (id !== runId) return;
+
+      reveal(reasons);
+
+      const items = reasons.querySelectorAll("li");
+
+      for (const li of items) {
+
+        await pause(750);
+
+        if (id !== runId) return;
+
+        li.classList.add("show");
+      }
+
+      await pause(600);
+
+      if (id !== runId) return;
+
+      reveal(counter);
+
+      updateCounter();
+
+      await pause(600);
+
+      if (id !== runId) return;
+
+      reveal(tags);
+
+      await pause(500);
+
+      if (id !== runId) return;
+
+      reveal(oneMore);
+
+      await pause(500);
+
+      if (id !== runId) return;
+
+      reveal(replyBtn);
+
+      reveal(againBtn);
+    }
+
+
+    /* ---------- COUNTER ---------- */
+
+    function updateCounter() {
+
+      let diff = Date.now() - START_DATE.getTime();
+
+      if (diff < 0) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+
+      const days = Math.floor(totalSeconds / 86400);
+
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+
+      const seconds = totalSeconds % 60;
+
+      counterValue.textContent =
+        days + (days === 1 ? " day " : " days ") +
+        String(hours).padStart(2, "0") + "h " +
+        String(minutes).padStart(2, "0") + "m " +
+        String(seconds).padStart(2, "0") + "s";
+    }
+
+    setInterval(updateCounter, 1000);
+
+
+    /* ---------- REPLY BUTTON ---------- */
+
+    if (REPLY_NUMBER) {
+      replyBtn.href =
+        "https://wa.me/" + 2348068582901 +
+        "?text=" + encodeURIComponent(REPLY_TEXT);
+    } else {
+      replyBtn.href = "sms:?body=" + encodeURIComponent(REPLY_TEXT);
+      replyBtn.removeAttribute("target");
+    }
+
+
+    /* ---------- RUN PROGRAM ---------- */
+
+    const logLines = [
+
+      "$ initializing heart...",
+
+      "$ loading memory: 12 September 2026, the day we first met...",
+
+      "$ loading file: your_laughter.mp3",
+
+      "$ loading file: your_smile.png",
+
+      "$ loading file: our_phone_calls.log",
+
+      "$ loading config: your_caring.json",
+
+      "$ checking compatibility... 100%",
+
+      "$ match found: MARYAM ❤️",
+
+      "$ compiling feelings..."
+
+    ];
 
     runBtn.addEventListener("click", function () {
+
+      burst(runBtn, 16);
+
+      startMusic();
+
+      runId++;
+
+      const myRun = runId;
 
       intro.classList.add("hidden");
 
       running.classList.remove("hidden");
 
+      bar.style.width = "0%";
+
+      output.textContent = logLines[0];
+
 
       let progress = 0;
 
+      clearInterval(progressTimer);
 
-      const messages = [
+      progressTimer = setInterval(function () {
 
-        "$ initializing heart...",
+        progress += 2;
 
-        "$ loading memories...",
+        bar.style.width = Math.min(progress, 100) + "%";
 
-        "$ checking compatibility...",
+        const shown = Math.min(
+          logLines.length,
+          Math.floor((progress / 100) * logLines.length) + 1
+        );
 
-        "$ searching for someone special...",
-
-        "$ match found: MARYAM ❤️",
-
-        "$ compiling feelings..."
-
-      ];
-
-
-      const interval = setInterval(function () {
-
-        progress += 5;
-
-        bar.style.width = progress + "%";
-
-
-        if (progress === 20) {
-
-          output.textContent = messages[1];
-
-        }
-
-
-        if (progress === 40) {
-
-          output.textContent = messages[2];
-
-        }
-
-
-        if (progress === 60) {
-
-          output.textContent = messages[3];
-
-        }
-
-
-        if (progress === 80) {
-
-          output.textContent = messages[4];
-
-        }
+        output.textContent = logLines.slice(0, shown).join("\n");
 
 
         if (progress >= 100) {
 
-          clearInterval(interval);
-
-
-          output.textContent = messages[5];
-
+          clearInterval(progressTimer);
 
           setTimeout(function () {
+
+            if (myRun !== runId) return;
 
             running.classList.add("hidden");
 
             final.classList.remove("hidden");
 
-          }, 800);
+            playFinal(myRun);
 
+          }, 900);
         }
 
-      }, 100);
+      }, 90);
 
     });
 
 
-    /* ONE MORE THING */
+    /* ---------- ONE MORE THING ---------- */
 
     surpriseBtn.addEventListener("click", function () {
+
+      burst(surpriseBtn, 28);
 
       surprise.classList.remove("hidden");
 
@@ -656,23 +1233,79 @@
     });
 
 
-    /* RUN AGAIN */
+    /* ---------- RUN AGAIN ---------- */
 
     againBtn.addEventListener("click", function () {
+
+      runId++;
+
+      clearInterval(progressTimer);
 
       final.classList.add("hidden");
 
       intro.classList.remove("hidden");
 
-      surprise.classList.add("hidden");
-
-      surpriseBtn.style.display = "block";
+      resetFinal();
 
       bar.style.width = "0%";
 
       output.textContent = "$ waiting for program...";
 
     });
+
+
+    /* ---------- FLOATING LOVE EMOJIS ---------- */
+
+    const loveEmojis = document.getElementById("loveEmojis");
+
+    const emojiList = [
+      "❤️",
+      "💗",
+      "💕",
+      "💖",
+      "💘",
+      "💞",
+      "🥰",
+      "🌹",
+      "✨"
+    ];
+
+    function createLoveEmoji() {
+
+      const emoji = document.createElement("div");
+
+      emoji.className = "love-emoji";
+
+      emoji.textContent =
+        emojiList[Math.floor(Math.random() * emojiList.length)];
+
+      // Keep emojis mostly around the sides so
+      // they don't cover the message.
+      const side =
+        Math.random() < 0.5
+          ? Math.random() * 20
+          : 80 + Math.random() * 20;
+
+      emoji.style.left = side + "%";
+
+      // Slight size variation
+      emoji.style.fontSize =
+        (18 + Math.random() * 17) + "px";
+
+      // Slight animation variation
+      emoji.style.animationDuration =
+        (3.5 + Math.random() * 2) + "s";
+
+      loveEmojis.appendChild(emoji);
+
+      setTimeout(() => {
+        emoji.remove();
+      }, 6000);
+    }
+
+
+    // Start gently
+    setInterval(createLoveEmoji, 900);
 
   </script>
 
